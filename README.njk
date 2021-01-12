@@ -1,0 +1,59 @@
+{% include "module-header" %}
+
+# Installation
+
+{%- include "installation" -%}
+
+# Synopsis
+
+```ts
+import { load, create, remove, flat, symlink } from "fs-structure";
+```
+
+```ts
+const tree = {
+  // Flat style (path as key)
+  "README.md": "Write here README content.",
+  "src/index.js": "console.log('Hello');",
+  "src/helper/util.js": "...",
+  "src/helper/main.js": "...",
+  "some-link": symlink({ target: "/path/to/some" }), // Using helepr function.
+  "other-link": { $type: "Symlink", target: "/path/to/other" }, // Using object.
+
+  // Below files are added to "test" directory". Also paths can be used too.
+  test: {
+    "index.test.js": "...",
+    "helper/util.test.js": "...",
+    "helper/main.test.js": "...",
+  }
+};
+```
+
+```ts
+await create(tree, { cwd: "/path/to/project" });
+
+const loadedTree = await load("/path/to/project");
+
+await remove(tree, { cwd: "/path/to/project" });
+
+const flatTree = flat(tree);
+```
+
+```ts
+expect(flatTree).toEqual(loadedTree);
+```
+
+# Details
+
+`fs-structure` is a basic module to make it easier to create and delete file and folder structure. Structre can be defined as JS object or loaded from JSON.
+
+- Ignores system files such as `.DS_Store` and `Thumbs.db`. Change with `load(path, { ignoreJunk: false })`
+- Deletes empty directories. Change with `remove(tree, { deleteEmptyUp: undefined });
+- Loads tree from file system.
+- Provides `flat()` function for easy comparison in tests.
+
+<!-- usage -->
+
+<!-- commands -->
+
+{% include "api.md" %}
