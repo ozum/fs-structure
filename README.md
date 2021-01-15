@@ -119,7 +119,7 @@ fs-structure
 
 Content which will be written to file.
 
-Defined in: utils/types.ts:5
+Defined in: [utils/types.ts:5](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L5)
 
 ---
 
@@ -135,7 +135,7 @@ An or object structure convertible to .
 | ---- | ---- |
 | `T`  | Item |
 
-Defined in: utils/types.ts:22
+Defined in: [utils/types.ts:22](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L22)
 
 ---
 
@@ -160,7 +160,7 @@ const dir = {
 | ---- | ---- |
 | `T`  | Item |
 
-Defined in: utils/types.ts:19
+Defined in: [utils/types.ts:19](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L19)
 
 ---
 
@@ -183,7 +183,7 @@ const dir = { $type: "Dir", children: [...] }
 | ---- | ---- |
 | `T`  | Item |
 
-Defined in: utils/types.ts:45
+Defined in: [utils/types.ts:45](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L45)
 
 ---
 
@@ -208,7 +208,7 @@ const dir = {
 | ---- | ---- |
 | `T`  | Item |
 
-Defined in: utils/types.ts:33
+Defined in: [utils/types.ts:33](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L33)
 
 ---
 
@@ -218,7 +218,7 @@ Defined in: utils/types.ts:33
 
 Plain item type.
 
-Defined in: utils/types.ts:36
+Defined in: [utils/types.ts:36](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L36)
 
 ---
 
@@ -234,7 +234,7 @@ Value type for Container/Dir shortcuts. See
 | ---- | ---- |
 | `T`  | Item |
 
-Defined in: utils/types.ts:8
+Defined in: [utils/types.ts:8](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L8)
 
 ## Functions
 
@@ -259,7 +259,7 @@ await create({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: main.ts:114
+Defined in: [main.ts:113](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L113)
 
 ---
 
@@ -294,7 +294,7 @@ const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
 
 flat object for file system.
 
-Defined in: main.ts:150
+Defined in: [main.ts:149](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L149)
 
 ---
 
@@ -315,7 +315,7 @@ Loads file tree from file system and makes it flat.
 
 file tree.
 
-Defined in: main.ts:101
+Defined in: [main.ts:100](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L100)
 
 ---
 
@@ -340,7 +340,7 @@ await remove({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: main.ts:128
+Defined in: [main.ts:127](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L127)
 
 ---
 
@@ -369,7 +369,7 @@ await create({
 
 object to create a symlink.
 
-Defined in: main.ts:165
+Defined in: [main.ts:164](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L164)
 
 ---
 
@@ -391,4 +391,4 @@ beforeAll(async () => {
 
 **Returns:** _Promise_<_string_\>
 
-Defined in: main.ts:179
+Defined in: [main.ts:178](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L178)

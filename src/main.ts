@@ -75,17 +75,16 @@ function getItemTree(input: ItemLike<Container>, cwd = ""): Root {
  * @param options are the options.
  */
 async function loadIntoParent<T extends Container>(path: string, parent: T, options: { ignoreJunk?: boolean }): Promise<T> {
-  const files = await fs.readdir(path);
+  const files = await fs.readdir(path, { withFileTypes: true });
   for (const file of files) {
-    if (options.ignoreJunk && junk.is(file)) continue; // eslint-disable-line no-continue
-    const currentPath = join(path, file);
-    const stats = await fs.lstat(currentPath);
-    if (stats.isDirectory()) {
-      const currentContainer = new Dir(file, { parent });
+    if (options.ignoreJunk && junk.is(file.name)) continue; // eslint-disable-line no-continue
+    const currentPath = join(path, file.name);
+    if (file.isDirectory()) {
+      const currentContainer = new Dir(file.name, { parent });
       await loadIntoParent(currentPath, currentContainer, options);
       parent.add(currentContainer);
-    } else if (stats.isSymbolicLink()) parent.add(new Symlink(file, { parent, target: await fs.readlink(currentPath) }));
-    else parent.add(new File(file, { parent, data: await fs.readFile(currentPath) }));
+    } else if (file.isSymbolicLink()) parent.add(new Symlink(file.name, { parent, target: await fs.readlink(currentPath) }));
+    else parent.add(new File(file.name, { parent, data: await fs.readFile(currentPath) }));
   }
 
   return parent;
