@@ -13,13 +13,7 @@ Create and delete files and folders in any structure using object syntax or JSON
     - [Type aliases](#type-aliases)
     - [Functions](#functions)
   - [Type aliases](#type-aliases-1)
-    - [FileContent](#filecontent)
-    - [ItemLike](#itemlike)
-    - [PlainContainerShortcut](#plaincontainershortcut)
-    - [PlainItem](#plainitem)
-    - [PlainItemOptions](#plainitemoptions)
-    - [PlainItemType](#plainitemtype)
-    - [ShortcutValue](#shortcutvalue)
+    - [Tree](#tree)
   - [Functions](#functions-1)
     - [create](#create)
     - [flat](#flat)
@@ -94,13 +88,7 @@ fs-structure
 
 ### Type aliases
 
-- [FileContent](#filecontent)
-- [ItemLike](#itemlike)
-- [PlainContainerShortcut](#plaincontainershortcut)
-- [PlainItem](#plainitem)
-- [PlainItemOptions](#plainitemoptions)
-- [PlainItemType](#plainitemtype)
-- [ShortcutValue](#shortcutvalue)
+- [Tree](#tree)
 
 ### Functions
 
@@ -113,134 +101,17 @@ fs-structure
 
 ## Type aliases
 
-### FileContent
+### Tree
 
-Ƭ **FileContent**: _string_ \| _number_ \| Uint8Array
+Ƭ **Tree**: _ItemLike_<Root\>
 
-Content which will be written to file.
-
-Defined in: [utils/types.ts:5](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L5)
-
----
-
-### ItemLike
-
-Ƭ **ItemLike**<T\>: [_PlainItem_](#plainitem)<T\> \| [_PlainContainerShortcut_](#plaincontainershortcut)<T\>
-
-An or object structure convertible to .
-
-#### Type parameters:
-
-| Name | Type |
-| ---- | ---- |
-| `T`  | Item |
-
-Defined in: [utils/types.ts:22](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L22)
-
----
-
-### PlainContainerShortcut
-
-Ƭ **PlainContainerShortcut**<T\>: { [filePath: string]: [_ShortcutValue_](#shortcutvalue)<T\>; }
-
-and items in it.
-
-#### Example
-
-```typescript
-const dir = {
-  "path/to/index.js": "console.log(1);",
-  "path/to/symlink": { $type: "Symlink", target: "./a" },
-};
-```
-
-#### Type parameters:
-
-| Name | Type |
-| ---- | ---- |
-| `T`  | Item |
-
-Defined in: [utils/types.ts:19](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L19)
-
----
-
-### PlainItem
-
-Ƭ **PlainItem**<T\>: { `$type`: [_PlainItemType_](#plainitemtype) } & [_PlainItemOptions_](#plainitemoptions)<T\>
-
-Plain object convertible to an .
-
-#### Example
-
-```typescript
-const symlink = { $type: "Symlink", target: "./a" }
-const dir = { $type: "Dir", children: [...] }
-```
-
-#### Type parameters:
-
-| Name | Type |
-| ---- | ---- |
-| `T`  | Item |
-
-Defined in: [utils/types.ts:45](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L45)
-
----
-
-### PlainItemOptions
-
-Ƭ **PlainItemOptions**<T\>: _Omit_<_Exclude_<T[*ConstructorOptions*], _undefined_\>, _cwd_ \| _parent_\>
-
-Options for function to create plain item.
-
-#### Example
-
-```typescript
-const dir = {
-  "path/to/symlink2": Symlink.toObject({ target: "./a" }), // This builder is equal to below.
-  "path/to/symlink": { $type: "Symlink", target: "./a" },
-};
-```
-
-#### Type parameters:
-
-| Name | Type |
-| ---- | ---- |
-| `T`  | Item |
-
-Defined in: [utils/types.ts:33](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L33)
-
----
-
-### PlainItemType
-
-Ƭ **PlainItemType**: _File_ \| _Symlink_
-
-Plain item type.
-
-Defined in: [utils/types.ts:36](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L36)
-
----
-
-### ShortcutValue
-
-Ƭ **ShortcutValue**<T\>: [_FileContent_](#filecontent) \| [_PlainItem_](#plainitem)<T\> \| [_PlainContainerShortcut_](#plaincontainershortcut)<T\> \| _undefined_
-
-Value type for Container/Dir shortcuts. See
-
-#### Type parameters:
-
-| Name | Type |
-| ---- | ---- |
-| `T`  | Item |
-
-Defined in: [utils/types.ts:8](https://github.com/ozum/fs-structure/blob/9e6e49a/src/utils/types.ts#L8)
+Defined in: [main.ts:17](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L17)
 
 ## Functions
 
 ### create
 
-▸ **create**(`input`: [_ItemLike_](#itemlike)<Root\>, `options?`: CreateOptions): _Promise_<_void_\>
+▸ **create**(`input`: [_Tree_](#tree), `options?`: CreateOptions): _Promise_<_void_\>
 
 Creates files and directories in file system using given tree.
 
@@ -252,20 +123,20 @@ await create({ a: 1, src: { b: 2, c: 2 } });
 
 #### Parameters:
 
-| Name      | Type                           | Default value | Description                                |
-| --------- | ------------------------------ | ------------- | ------------------------------------------ |
-| `input`   | [_ItemLike_](#itemlike)<Root\> | -             | is the file tree to create in file system. |
-| `options` | CreateOptions                  | ...           | -                                          |
+| Name      | Type            | Default value | Description                                |
+| --------- | --------------- | ------------- | ------------------------------------------ |
+| `input`   | [_Tree_](#tree) | -             | is the file tree to create in file system. |
+| `options` | CreateOptions   | ...           | -                                          |
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:113](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L113)
+Defined in: [main.ts:115](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L115)
 
 ---
 
 ### flat
 
-▸ **flat**(`input`: [_ItemLike_](#itemlike)<Root\>, `__namedParameters?`: { `cwd?`: _string_ }): [_ItemLike_](#itemlike)<Root\>
+▸ **flat**(`input`: [_Tree_](#tree), `__namedParameters?`: { `cwd?`: _string_ }): [_Tree_](#tree)
 
 Converts given tree to a flat structure. May be used to compare two file tree easily.
 
@@ -285,22 +156,22 @@ const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
 
 #### Parameters:
 
-| Name                | Type                           | Default value | Description        |
-| ------------------- | ------------------------------ | ------------- | ------------------ |
-| `input`             | [_ItemLike_](#itemlike)<Root\> | -             | is the input tree. |
-| `__namedParameters` | { `cwd?`: _string_ }           | ...           | -                  |
+| Name                | Type                 | Default value | Description        |
+| ------------------- | -------------------- | ------------- | ------------------ |
+| `input`             | [_Tree_](#tree)      | -             | is the input tree. |
+| `__namedParameters` | { `cwd?`: _string_ } | ...           | -                  |
 
-**Returns:** [_ItemLike_](#itemlike)<Root\>
+**Returns:** [_Tree_](#tree)
 
 flat object for file system.
 
-Defined in: [main.ts:149](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L149)
+Defined in: [main.ts:151](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L151)
 
 ---
 
 ### load
 
-▸ **load**(`path`: _string_, `__namedParameters?`: { `ignoreJunk`: }): _Promise_<[_ItemLike_](#itemlike)<Root\>\>
+▸ **load**(`path`: _string_, `__namedParameters?`: { `ignoreJunk`: }): _Promise_<[_Tree_](#tree)\>
 
 Loads file tree from file system and makes it flat.
 
@@ -311,17 +182,17 @@ Loads file tree from file system and makes it flat.
 | `path`              | _string_          | -             | is the path to load file tree from. |
 | `__namedParameters` | { `ignoreJunk`: } | ...           | -                                   |
 
-**Returns:** _Promise_<[_ItemLike_](#itemlike)<Root\>\>
+**Returns:** _Promise_<[_Tree_](#tree)\>
 
 file tree.
 
-Defined in: [main.ts:100](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L100)
+Defined in: [main.ts:102](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L102)
 
 ---
 
 ### remove
 
-▸ **remove**(`input`: [_ItemLike_](#itemlike)<Root\>, `options?`: RemoveOptions): _Promise_<_void_\>
+▸ **remove**(`input`: [_Tree_](#tree), `options?`: RemoveOptions): _Promise_<_void_\>
 
 Removes files and directories from file system using given tree. Also deletes empty directories.
 
@@ -333,20 +204,20 @@ await remove({ a: 1, src: { b: 2, c: 2 } });
 
 #### Parameters:
 
-| Name      | Type                           | Default value | Description                                  |
-| --------- | ------------------------------ | ------------- | -------------------------------------------- |
-| `input`   | [_ItemLike_](#itemlike)<Root\> | -             | is the file tree to remove from file system. |
-| `options` | RemoveOptions                  | ...           | -                                            |
+| Name      | Type            | Default value | Description                                  |
+| --------- | --------------- | ------------- | -------------------------------------------- |
+| `input`   | [_Tree_](#tree) | -             | is the file tree to remove from file system. |
+| `options` | RemoveOptions   | ...           | -                                            |
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:127](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L127)
+Defined in: [main.ts:129](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L129)
 
 ---
 
 ### symlink
 
-▸ **symlink**(`options`: [_PlainItemOptions_](#plainitemoptions)<Symlink\>): [_PlainItem_](#plainitem)<Symlink\>
+▸ **symlink**(`options`: _PlainItemOptions_<Symlink\>): _PlainItem_<Symlink\>
 
 Generates a symlink to be used in file tree.
 
@@ -361,15 +232,15 @@ await create({
 
 #### Parameters:
 
-| Name      | Type                                              | Description      |
-| --------- | ------------------------------------------------- | ---------------- |
-| `options` | [_PlainItemOptions_](#plainitemoptions)<Symlink\> | are the options. |
+| Name      | Type                         | Description      |
+| --------- | ---------------------------- | ---------------- |
+| `options` | _PlainItemOptions_<Symlink\> | are the options. |
 
-**Returns:** [_PlainItem_](#plainitem)<Symlink\>
+**Returns:** _PlainItem_<Symlink\>
 
 object to create a symlink.
 
-Defined in: [main.ts:164](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L164)
+Defined in: [main.ts:166](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L166)
 
 ---
 
@@ -391,4 +262,4 @@ beforeAll(async () => {
 
 **Returns:** _Promise_<_string_\>
 
-Defined in: [main.ts:178](https://github.com/ozum/fs-structure/blob/9e6e49a/src/main.ts#L178)
+Defined in: [main.ts:180](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L180)

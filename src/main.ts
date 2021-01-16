@@ -14,6 +14,8 @@ import Root from "./nodes/root";
 
 import type { ItemLike, ShortcutValue, PlainItemOptions, PlainContainerShortcut, PlainItem } from "./utils/types";
 
+export type Tree = ItemLike<Root>;
+
 /** @ignore */
 const TYPEOF = { File, Symlink };
 
@@ -97,7 +99,7 @@ async function loadIntoParent<T extends Container>(path: string, parent: T, opti
  * @param ignoreJunk is whether to ignore system junk files such as `.DS_Store` and `Thumbs.db` etc.
  * @returns file tree.
  */
-export async function load(path: string, { ignoreJunk = true } = {}): Promise<ItemLike<Root>> {
+export async function load(path: string, { ignoreJunk = true } = {}): Promise<Tree> {
   return (await loadIntoParent(path, new Root(path), { ignoreJunk })).flat().toObject();
 }
 
@@ -110,7 +112,7 @@ export async function load(path: string, { ignoreJunk = true } = {}): Promise<It
  * @example
  * await create({ a: 1, src: { "b": 2, "c": 2 } });
  */
-export async function create(input: ItemLike<Root>, options: CreateOptions = {}): Promise<void> {
+export async function create(input: Tree, options: CreateOptions = {}): Promise<void> {
   const optionsWithDefaults = { overwrite: true, ...options };
   return getItemTree(input, optionsWithDefaults.cwd).create(optionsWithDefaults);
 }
@@ -124,7 +126,7 @@ export async function create(input: ItemLike<Root>, options: CreateOptions = {})
  * @example
  * await remove({ a: 1, src: { "b": 2, "c": 2 } });
  */
-export async function remove(input: ItemLike<Root>, options: RemoveOptions = {}): Promise<void> {
+export async function remove(input: Tree, options: RemoveOptions = {}): Promise<void> {
   const optionsWithDefaults = { deleteEmptyUp: options.cwd ?? "", ...options };
   return getItemTree(input, optionsWithDefaults.cwd).remove(optionsWithDefaults);
 }
@@ -146,7 +148,7 @@ export async function remove(input: ItemLike<Root>, options: RemoveOptions = {})
  *
  * const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
  */
-export function flat(input: ItemLike<Root>, { cwd }: { cwd?: string } = {}): ItemLike<Root> {
+export function flat(input: Tree, { cwd }: { cwd?: string } = {}): Tree {
   return getItemTree(input, cwd).flat().toObject();
 }
 
