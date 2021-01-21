@@ -1,4 +1,4 @@
-import deleteEmptyUp from "delete-empty-up";
+import rmUp from "rm-up";
 import { promises as fs } from "fs";
 import { dirname } from "path";
 import Container from "./abstract/container";
@@ -16,6 +16,6 @@ export default class Dir extends Container {
     const ignoredErrors = options.ignoreNotEmpty ? ["ENOTEMPTY", "ENOENT"] : ["ENOENT"];
     await super.remove(options); // Delete created contents first.
     await ignoreError(ignoredErrors, () => fs.rmdir(this.path));
-    if (options.deleteEmptyUp !== undefined) await deleteEmptyUp(dirname(this.path), { stop: options.deleteEmptyUp, force: true });
+    if (options.rmUp !== undefined) await rmUp(dirname(this.path), { stop: options.rmUp, force: true });
   }
 }

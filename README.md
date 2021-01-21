@@ -70,7 +70,7 @@ expect(flatTree).toEqual(loadedTree);
 `fs-structure` is a basic module to make it easier to create and delete file and folder structure. Structre can be defined as JS object or loaded from JSON.
 
 - Ignores system files such as `.DS_Store` and `Thumbs.db`. Change with `load(path, { ignoreJunk: false })`
-- Deletes empty directories. Change with `remove(tree, { deleteEmptyUp: undefined });
+- Deletes empty directories. Change with `remove(tree, { rmUp: undefined });
 - Loads tree from file system.
 - Provides `flat()` function for easy comparison in tests.
 
@@ -105,7 +105,7 @@ fs-structure
 
 Ƭ **Tree**: _ItemLike_<Root\>
 
-Defined in: [main.ts:17](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L17)
+Defined in: [main.ts:17](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L17)
 
 ## Functions
 
@@ -130,7 +130,7 @@ await create({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:115](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L115)
+Defined in: [main.ts:115](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L115)
 
 ---
 
@@ -165,7 +165,7 @@ const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
 
 flat object for file system.
 
-Defined in: [main.ts:151](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L151)
+Defined in: [main.ts:151](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L151)
 
 ---
 
@@ -186,7 +186,7 @@ Loads file tree from file system and makes it flat.
 
 file tree.
 
-Defined in: [main.ts:102](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L102)
+Defined in: [main.ts:102](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L102)
 
 ---
 
@@ -211,7 +211,7 @@ await remove({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:129](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L129)
+Defined in: [main.ts:129](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L129)
 
 ---
 
@@ -240,7 +240,7 @@ await create({
 
 object to create a symlink.
 
-Defined in: [main.ts:166](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L166)
+Defined in: [main.ts:166](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L166)
 
 ---
 
@@ -262,4 +262,4 @@ beforeAll(async () => {
 
 **Returns:** _Promise_<_string_\>
 
-Defined in: [main.ts:180](https://github.com/ozum/fs-structure/blob/205d72a/src/main.ts#L180)
+Defined in: [main.ts:180](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L180)

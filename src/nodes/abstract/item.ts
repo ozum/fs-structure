@@ -2,7 +2,7 @@
 import { resolve, dirname, isAbsolute, join } from "path";
 import { promises as fs } from "fs";
 import type { Class } from "type-fest"; // eslint-disable-line import/no-unresolved
-import deleteEmptyUp from "delete-empty-up";
+import rmUp from "rm-up";
 import { PlainItemType, PlainItem, PlainItemOptions } from "../../utils/types";
 
 import { ignoreError } from "../../utils/helper";
@@ -23,7 +23,7 @@ export interface CreateOptions {
 /* Options for removing file tree. */
 export interface RemoveOptions {
   /** Delete empty directories up to given path. */
-  deleteEmptyUp?: string;
+  rmUp?: string;
   /** If true, do not throw if directory to be deleted is not empty. Does not delete directory. */
   ignoreNotEmpty?: boolean;
   /** Current working directory. */
@@ -50,7 +50,7 @@ export default abstract class Item {
 
   public async remove(options: RemoveOptions): Promise<void> {
     await ignoreError("ENOENT", () => fs.unlink(this.path));
-    if (options.deleteEmptyUp !== undefined) await deleteEmptyUp(dirname(this.path), { stop: options.deleteEmptyUp, force: true });
+    if (options.rmUp !== undefined) await rmUp(dirname(this.path), { stop: options.rmUp, force: true });
   }
 
   //

@@ -50,9 +50,9 @@ describe("fs-structure", () => {
     expect(currentFiles).toEqual(["extra"]);
   });
 
-  it("should not delete empty dirs when remove tree from file system without 'deleteEmptyUp'.", async () => {
+  it("should not delete empty dirs when remove tree from file system without 'rmUp'.", async () => {
     await create(tree, { cwd });
-    await remove(tree, { cwd, deleteEmptyUp: undefined });
+    await remove(tree, { cwd, rmUp: undefined });
     await expect(await fs.readdir(cwd)).toEqual(["bin", "node_modules"]);
   });
 

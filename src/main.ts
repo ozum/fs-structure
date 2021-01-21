@@ -121,13 +121,13 @@ export async function create(input: Tree, options: CreateOptions = {}): Promise<
  * Removes files and directories from file system using given tree. Also deletes empty directories.
  *
  * @param input is the file tree to remove from file system.
- * @param deleteEmptyUpTo is limit to delete empty directories. All empty directories are deleted up to given limit. By default it uses given `cwd` or `process.cwd`. Empty string means `process.cwd`.
+ * @param rmUpTo is limit to delete empty directories. All empty directories are deleted up to given limit. By default it uses given `cwd` or `process.cwd`. Empty string means `process.cwd`.
  * @param cwd is the current working directory, which is used as path of the {{Root}} item.
  * @example
  * await remove({ a: 1, src: { "b": 2, "c": 2 } });
  */
 export async function remove(input: Tree, options: RemoveOptions = {}): Promise<void> {
-  const optionsWithDefaults = { deleteEmptyUp: options.cwd ?? "", ...options };
+  const optionsWithDefaults = { rmUp: options.cwd ?? "", ...options };
   return getItemTree(input, optionsWithDefaults.cwd).remove(optionsWithDefaults);
 }
 

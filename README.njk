@@ -48,7 +48,7 @@ expect(flatTree).toEqual(loadedTree);
 `fs-structure` is a basic module to make it easier to create and delete file and folder structure. Structre can be defined as JS object or loaded from JSON.
 
 - Ignores system files such as `.DS_Store` and `Thumbs.db`. Change with `load(path, { ignoreJunk: false })`
-- Deletes empty directories. Change with `remove(tree, { deleteEmptyUp: undefined });
+- Deletes empty directories. Change with `remove(tree, { rmUp: undefined });
 - Loads tree from file system.
 - Provides `flat()` function for easy comparison in tests.
 
