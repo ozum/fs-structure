@@ -34,7 +34,7 @@ export interface RemoveOptions {
 export default abstract class Item {
   public readonly ConstructorOptions?: ItemOptions;
   public abstract create(options?: CreateOptions): Promise<void>;
-  public abstract toObject(): Record<string, any> | string;
+  public abstract toObject(options?: { includeChildren?: boolean }): Record<string, any> | string;
 
   public path: string;
 

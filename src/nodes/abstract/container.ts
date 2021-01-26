@@ -18,11 +18,18 @@ export default abstract class Container extends Item {
     return Promise.all(this.children.map((child) => child.remove(options)));
   }
 
-  public toObject(): Record<string, any> {
-    return mapToObject(this.children, (child) => [relative(this.path, child.path), child.toObject()]);
+  // public toObject({ includeChildren = true }): Record<string, any> {
+  //   return includeChildren ? mapToObject(this.children, (child) => [relative(this.path, child.path), child.toObject()]) : super.toObject();
+  // }
+
+  public toObject(options: { includeChildren: boolean }): Record<string, any> {
+    return options.includeChildren
+      ? mapToObject(this.children, (child) => [relative(this.path, child.path), child.toObject(options)])
+      : { $type: this.constructor.name };
   }
 
-  public onFlat(newRootChildren: Item[]): void {
-    this.children.forEach((child) => (child instanceof Container ? child.onFlat(newRootChildren) : newRootChildren.push(child)));
+  public onFlat(newRootChildren: Item[], options: { includeDirs?: boolean }): void {
+    if (options.includeDirs) newRootChildren.push(this);
+    this.children.forEach((child) => (child instanceof Container ? child.onFlat(newRootChildren, options) : newRootChildren.push(child)));
   }
 }

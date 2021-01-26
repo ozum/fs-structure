@@ -105,7 +105,7 @@ fs-structure
 
 Ƭ **Tree**: _ItemLike_<Root\>
 
-Defined in: [main.ts:17](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L17)
+Defined in: [main.ts:17](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L17)
 
 ## Functions
 
@@ -130,13 +130,13 @@ await create({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:115](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L115)
+Defined in: [main.ts:119](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L119)
 
 ---
 
 ### flat
 
-▸ **flat**(`input`: [_Tree_](#tree), `__namedParameters?`: { `cwd?`: _string_ }): [_Tree_](#tree)
+▸ **flat**(`input`: [_Tree_](#tree), `__namedParameters?`: { `cwd?`: _string_ ; `includeDirs?`: _boolean_ }): [_Tree_](#tree)
 
 Converts given tree to a flat structure. May be used to compare two file tree easily.
 
@@ -156,37 +156,37 @@ const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
 
 #### Parameters:
 
-| Name                | Type                 | Default value | Description        |
-| ------------------- | -------------------- | ------------- | ------------------ |
-| `input`             | [_Tree_](#tree)      | -             | is the input tree. |
-| `__namedParameters` | { `cwd?`: _string_ } | ...           | -                  |
+| Name                | Type                                             | Default value | Description        |
+| ------------------- | ------------------------------------------------ | ------------- | ------------------ |
+| `input`             | [_Tree_](#tree)                                  | -             | is the input tree. |
+| `__namedParameters` | { `cwd?`: _string_ ; `includeDirs?`: _boolean_ } | ...           | -                  |
 
 **Returns:** [_Tree_](#tree)
 
 flat object for file system.
 
-Defined in: [main.ts:151](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L151)
+Defined in: [main.ts:155](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L155)
 
 ---
 
 ### load
 
-▸ **load**(`path`: _string_, `__namedParameters?`: { `ignoreJunk`: }): _Promise_<[_Tree_](#tree)\>
+▸ **load**(`path`: _string_, `__namedParameters?`: { `ignoreJunk?`: _boolean_ ; `includeDirs?`: _boolean_ }): _Promise_<[_Tree_](#tree)\>
 
 Loads file tree from file system and makes it flat.
 
 #### Parameters:
 
-| Name                | Type              | Default value | Description                         |
-| ------------------- | ----------------- | ------------- | ----------------------------------- |
-| `path`              | _string_          | -             | is the path to load file tree from. |
-| `__namedParameters` | { `ignoreJunk`: } | ...           | -                                   |
+| Name                | Type                                                     | Default value | Description                         |
+| ------------------- | -------------------------------------------------------- | ------------- | ----------------------------------- |
+| `path`              | _string_                                                 | -             | is the path to load file tree from. |
+| `__namedParameters` | { `ignoreJunk?`: _boolean_ ; `includeDirs?`: _boolean_ } | ...           | -                                   |
 
 **Returns:** _Promise_<[_Tree_](#tree)\>
 
 file tree.
 
-Defined in: [main.ts:102](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L102)
+Defined in: [main.ts:103](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L103)
 
 ---
 
@@ -211,7 +211,7 @@ await remove({ a: 1, src: { b: 2, c: 2 } });
 
 **Returns:** _Promise_<_void_\>
 
-Defined in: [main.ts:129](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L129)
+Defined in: [main.ts:133](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L133)
 
 ---
 
@@ -240,7 +240,7 @@ await create({
 
 object to create a symlink.
 
-Defined in: [main.ts:166](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L166)
+Defined in: [main.ts:170](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L170)
 
 ---
 
@@ -262,4 +262,4 @@ beforeAll(async () => {
 
 **Returns:** _Promise_<_string_\>
 
-Defined in: [main.ts:180](https://github.com/ozum/fs-structure/blob/91fdc8b/src/main.ts#L180)
+Defined in: [main.ts:184](https://github.com/ozum/fs-structure/blob/efe12fd/src/main.ts#L184)

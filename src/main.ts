@@ -97,10 +97,14 @@ async function loadIntoParent<T extends Container>(path: string, parent: T, opti
  *
  * @param path is the path to load file tree from.
  * @param ignoreJunk is whether to ignore system junk files such as `.DS_Store` and `Thumbs.db` etc.
+ * @param includeDirs is whether to include directory entries into returned flat file structure. If directories are not included, empty directories cannot be seen in flat list.
  * @returns file tree.
  */
-export async function load(path: string, { ignoreJunk = true } = {}): Promise<Tree> {
-  return (await loadIntoParent(path, new Root(path), { ignoreJunk })).flat().toObject();
+export async function load(
+  path: string,
+  { ignoreJunk = true, includeDirs = false }: { ignoreJunk?: boolean; includeDirs?: boolean } = {}
+): Promise<Tree> {
+  return (await loadIntoParent(path, new Root(path), { ignoreJunk })).flat({ includeDirs }).toObject({ includeChildren: !includeDirs });
 }
 
 /**
@@ -148,8 +152,8 @@ export async function remove(input: Tree, options: RemoveOptions = {}): Promise<
  *
  * const flatObject = flat(tree); // { a: 1, "src/b": 2, "src/c": 2 }
  */
-export function flat(input: Tree, { cwd }: { cwd?: string } = {}): Tree {
-  return getItemTree(input, cwd).flat().toObject();
+export function flat(input: Tree, { cwd, includeDirs = false }: { cwd?: string; includeDirs?: boolean } = {}): Tree {
+  return getItemTree(input, cwd).flat({ includeDirs }).toObject({ includeChildren: !includeDirs });
 }
 
 /**

@@ -3,6 +3,7 @@ import { promises as fs, existsSync } from "fs";
 import { load, create, remove, flat, symlink, tempDir } from "../src/index";
 
 let cwd: string;
+
 const tree = {
   "README.md": "//",
   "bin/index.js": "//",
@@ -87,5 +88,18 @@ describe("fs-structure", () => {
 
   it("should throw if an item with absolute path added to a dir.", () => {
     expect(() => flat({ a: { "/x": "1" } })).toThrow("Children cannot have absolute paths.");
+  });
+
+  it("should load empty dir.", async () => {
+    await fs.mkdir(join(cwd, "dir/sub"), { recursive: true });
+    const result = await load(join(cwd), { includeDirs: true });
+    expect(result).toEqual({ dir: { $type: "Dir" }, "dir/sub": { $type: "Dir" } });
+  });
+
+  it("should create empty dir and load it.", async () => {
+    const localTree = { dir: { sub: {} } };
+    await create(localTree, { cwd });
+    const result = await load(join(cwd), { includeDirs: true });
+    expect(result).toEqual(flat(localTree, { includeDirs: true }));
   });
 });
